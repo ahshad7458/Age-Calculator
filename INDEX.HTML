@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        label, input {
+            margin-bottom: 10px;
+            display: block;
+            width: 100%;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Age Calculator</h2>
+    
+    <label for="day">Day of Birth:</label>
+    <input type="number" id="day" placeholder="Enter day (1-31)" min="1" max="31">
+
+    <label for="month">Month of Birth:</label>
+    <input type="number" id="month" placeholder="Enter month (1-12)" min="1" max="12">
+
+    <label for="year">Year of Birth:</label>
+    <input type="number" id="year" placeholder="Enter year" min="1900" max="2024">
+
+    <button onclick="calculateAge()">Calculate Age</button>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateAge() {
+        const day = document.getElementById('day').value;
+        const month = document.getElementById('month').value - 1;  // JavaScript months are 0-11
+        const year = document.getElementById('year').value;
+
+        if (!day || !month || !year) {
+            document.getElementById('result').innerHTML = "Please fill in all fields correctly.";
+            return;
+        }
+
+        const birthDate = new Date(year, month, day);
+        const today = new Date();
+
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDiff = today.getMonth() - birthDate.getMonth();
+        const dayDiff = today.getDate() - birthDate.getDate();
+
+        if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+            age--;
+        }
+
+        document.getElementById('result').innerHTML = "Your age is: " + age + " years.";
+    }
+</script>
+
+</body>
+</html>
